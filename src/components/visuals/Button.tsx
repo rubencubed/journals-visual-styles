@@ -2,13 +2,17 @@ const Button = ({
   backgroundColor,
   color,
   borderRadius,
+  padding,
 }: {
   backgroundColor: string
   color: string
-  borderRadius: number
+  borderRadius: string
+  padding: string
 }) => {
   return (
-    <button style={{ backgroundColor, color, borderRadius }}>Click Me!</button>
+    <button style={{ backgroundColor, color, borderRadius, padding }}>
+      Click Me!
+    </button>
   )
 }
 

@@ -12,8 +12,13 @@ const ColorPicker = ({
   }
   return (
     <div className='color-picker'>
-      <p>{name} Color</p>
-      <input type='color' value={color} onChange={handleChange} />
+      <h2>{name} Color</h2>
+      <input
+        className='color-picker-toggle'
+        type='color'
+        value={color}
+        onChange={handleChange}
+      />
     </div>
   )
 }
