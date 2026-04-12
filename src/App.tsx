@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import ColorPicker from './components/selectors/ColorPicker'
 import RadioPicker from './components/selectors/RadioPicker'
-import ColorInput from './components/ColorInput'
+import ColorPicker from './components/selectors/ColorPicker'
 
 import Button from './components/visuals/Button'
 import Link from './components/visuals/Link'
 
 import calculateContrast from './utils/contrast'
-import convertHexColorToDecimalTuple from './utils/hexToDecimal'
+import { convertHexColorToDecimalTuple, decimalToHex } from './utils/conversion'
 
 const borderRadiusOptions = [
   { value: '0', label: 'Sharp' },
@@ -24,12 +23,15 @@ const paddingOptions = [
 ]
 
 function App() {
-  const [popColor, setPopColor] = useState('#ffffff')
+  const [mainColor, setMainColor] = useState<[number, number, number]>([
+    0, 45, 114,
+  ])
+
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
 
-  const color = (popColor: string) => {
-    const decimalTuple = convertHexColorToDecimalTuple(popColor)
+  const contrastColor = (mainColor: string) => {
+    const decimalTuple = convertHexColorToDecimalTuple(mainColor)
     if (!decimalTuple) return '#ffffff'
 
     return calculateContrast(decimalTuple)['color']
@@ -38,8 +40,7 @@ function App() {
   return (
     <>
       <div className='control-panel'>
-        <ColorInput />
-        <ColorPicker name='Primary' color={popColor} setColor={setPopColor} />
+        <ColorPicker name='Main' color={mainColor} setColor={setMainColor} />
         <RadioPicker
           name='Corner Rounding'
           options={borderRadiusOptions}
@@ -54,12 +55,12 @@ function App() {
 
       <div className='interface'>
         <Button
-          backgroundColor={popColor}
-          color={color(popColor)}
+          backgroundColor={decimalToHex(mainColor)}
+          color={contrastColor(decimalToHex(mainColor))}
           borderRadius={borderRadius}
           padding={padding}
         />
-        <Link color={popColor} />
+        <Link color={decimalToHex(mainColor)} />
       </div>
     </>
   )

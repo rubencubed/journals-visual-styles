@@ -7,6 +7,8 @@
   color: rgba(10, 10, 10, 0.87);
   background-color: #eee;
 
+  user-select: none;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,41 +22,33 @@ body {
   justify-content: center;
 
   min-width: 320px;
-  min-height: 100vh;
+  height: 100dvh;
 }
 
 #root {
   display: grid;
   grid-template-columns: 2fr 3fr;
-}
 
-.color-picker-toggle {
-  anchor-name: --color-picker;
+  height: 100%;
 }
 
 .color-input {
-  height: 20rem;
-  width: 25rem;
+  .rgb-slider-label {
+    font-size: 1.125rem;
+    margin-block: 0rem;
+  }
 
-  position: fixed;
-  position-anchor: --color-picker;
+  input[type="range"] {
+    appearance: none;
+    appearance: none;
+    cursor: pointer;
 
-  top: anchor(top);
-  left: calc(anchor(right) + 5px);
-  z-index: 10;
-
-  background-color: white;
-  border: 1px solid;
-
-  input {
-    width: 22.5rem;
-    display: block;
-    margin-inline: auto;
+    width: 16rem;
   }
 }
 
 .control-panel {
-  max-height: 100vh;
+  max-height: 100%;
   background-color: #ccc;
   overflow: scroll auto;
   padding: 1rem;

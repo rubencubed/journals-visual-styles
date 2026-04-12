@@ -6,7 +6,7 @@ import {
 import RgbSlider from './RgbSlider'
 import type { ColorInputName } from '../../utils/types'
 
-const ColorPicker = ({
+const ColorInput = ({
   color,
   setColor,
   name,
@@ -121,4 +121,4 @@ const ColorPicker = ({
   )
 }
 
-export default ColorPicker
+export default ColorInput
