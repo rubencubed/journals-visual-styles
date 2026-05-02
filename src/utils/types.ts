@@ -1,3 +1,4 @@
 type ColorInputName = 'Main' | 'Sub'
+type MenuOption = 'Slim' | 'Layered'
 
-export type { ColorInputName }
+export type { ColorInputName, MenuOption }

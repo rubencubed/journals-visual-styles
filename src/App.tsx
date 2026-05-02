@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+
 import RadioPicker from './components/selectors/RadioPicker'
 import ColorPicker from './components/selectors/ColorPicker'
 
 import Button from './components/visuals/Button'
 import Link from './components/visuals/Link'
+import Paragraph from './components/visuals/Paragraph'
 
 import calculateContrast from './utils/contrast'
 import { convertHexColorToDecimalTuple, decimalToHex } from './utils/conversion'
@@ -30,22 +32,28 @@ function App() {
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
 
-  const contrastColor = (mainColor: string) => {
-    const decimalTuple = convertHexColorToDecimalTuple(mainColor)
-    if (!decimalTuple) return '#ffffff'
+  const mainHex = useMemo(() => decimalToHex(mainColor), [mainColor])
 
-    return calculateContrast(decimalTuple)['color']
-  }
+  const backgroundColor = useMemo(() => {
+    const decimalTuple = convertHexColorToDecimalTuple(mainHex)
+    return calculateContrast(decimalTuple).color
+  }, [mainHex])
+
+  const textColor = useMemo(() => {
+    return backgroundColor === '#ffffff' ? '#000000' : '#ffffff'
+  }, [backgroundColor])
 
   return (
     <>
       <div className='control-panel'>
         <ColorPicker name='Main' color={mainColor} setColor={setMainColor} />
+
         <RadioPicker
           name='Corner Rounding'
           options={borderRadiusOptions}
           setSelectedOption={setBorderRadius}
         />
+
         <RadioPicker
           name='Padding'
           options={paddingOptions}
@@ -53,14 +61,94 @@ function App() {
         />
       </div>
 
-      <div className='interface'>
+      <div className='interface' style={{ backgroundColor, color: textColor }}>
+        <h1 style={{ color: mainHex }}>This is a Heading 1</h1>
+        <Paragraph color={textColor}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
+          porttitor erat, sed sollicitudin tellus.{' '}
+          <Link color={mainHex}>
+            Fusce congue dui fringilla malesuada hendrerit
+          </Link>
+          . Nulla bibendum mauris in diam pharetra hendrerit. Aenean consequat
+          maximus arcu ac molestie.
+        </Paragraph>
+
         <Button
-          backgroundColor={decimalToHex(mainColor)}
-          color={contrastColor(decimalToHex(mainColor))}
+          backgroundColor={mainHex}
+          color={backgroundColor}
           borderRadius={borderRadius}
           padding={padding}
+          content='Donate Now'
         />
-        <Link color={decimalToHex(mainColor)} />
+
+        <Paragraph color={textColor}>
+          Fusce id dapibus lorem. Sed ut sapien lectus. Sed vel sollicitudin
+          lacus. Ut luctus lectus urna, molestie tempor elit suscipit id. Aenean
+          nec diam rhoncus, lacinia mi a, bibendum turpis.
+        </Paragraph>
+
+        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+
+        <Paragraph color={textColor}>
+          Vivamus vel iaculis nisl.{' '}
+          <Link color={mainHex}>Fusce tempor neque augue</Link>, a convallis
+          nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
+          dapibus.
+        </Paragraph>
+        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+        <h3 style={{ color: textColor }}>This is a Heading 3</h3>
+
+        <Paragraph color={textColor}>
+          <Link color={mainHex}>
+            Nulla nulla sapien, blandit ac placerat et, facilisis a ante
+          </Link>
+          . Nunc auctor ligula non metus congue gravida non a ante. Nullam id
+          aliquam mi.
+        </Paragraph>
+
+        <Paragraph color={textColor}>
+          Vivamus auctor eu neque quis fringilla. Curabitur molestie orci nulla.
+          In sed cursus nibh. Nulla sit amet ipsum condimentum, gravida neque
+          vel, commodo mi.
+        </Paragraph>
+        <h3 style={{ color: textColor }}>
+          <Link color={mainHex}>This is a Heading 3 and a Link</Link>
+        </h3>
+
+        <Paragraph color={textColor}>
+          Donec nec velit vitae est sollicitudin pharetra. Vestibulum sit amet
+          semper sem. Morbi id quam id nisl maximus lacinia.
+        </Paragraph>
+
+        <Paragraph color={textColor}>
+          <Link color={mainHex}>Cras a aliquet odio</Link>. Maecenas elementum
+          nibh eu ultrices efficitur. Morbi eget sem imperdiet, mattis orci ut,
+          scelerisque ipsum.
+        </Paragraph>
+
+        <h4 style={{ color: textColor }}>This is a Heading 4</h4>
+
+        <Paragraph color={textColor}>
+          Proin tristique elit eu tortor tristique, quis consequat nibh mattis.
+          Nullam a arcu non purus mollis accumsan.{' '}
+          <Link color={mainHex}>
+            Etiam elit leo, rutrum eget erat non, blandit luctus ante
+          </Link>
+          .
+        </Paragraph>
+
+        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+
+        <Paragraph color={textColor}>
+          Pellentesque eleifend pulvinar tempus. Class aptent taciti sociosqu ad
+          litora torquent per conubia nostra, per inceptos himenaeos.
+        </Paragraph>
+
+        <Paragraph color={textColor}>
+          Etiam dui mi, porttitor auctor tellus a, facilisis vehicula enim.
+          Morbi tincidunt vitae urna in egestas. Integer mauris sapien, dapibus
+          eget facilisis quis, posuere non ex.
+        </Paragraph>
       </div>
     </>
   )

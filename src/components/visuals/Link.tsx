@@ -1,10 +1,14 @@
-const Link = ({ color }: { color: string }) => {
+const Link = ({
+  color,
+  children,
+}: {
+  color: string
+  children: React.ReactNode
+}) => {
   return (
-    <p>
-      <a href='/' style={{ color }}>
-        Visit This Page
-      </a>
-    </p>
+    <a href='/' style={{ color }}>
+      {children}
+    </a>
   )
 }
 

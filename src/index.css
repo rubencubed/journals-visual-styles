@@ -48,10 +48,14 @@ body {
 }
 
 .control-panel {
-  max-height: 100%;
   background-color: #ccc;
-  overflow: scroll auto;
   padding: 1rem;
+}
+
+.control-panel,
+.interface {
+  max-height: 100vb;
+  overflow: scroll auto;
 }
 
 .color-picker,
@@ -83,10 +87,16 @@ h6 {
   margin-inline: auto;
 }
 
+p {
+  text-wrap: pretty;
+}
+
 button {
   border: none;
   font-size: 1.25rem;
   user-select: none;
+  margin-inline: auto;
+  display: block;
 }
 
 a:hover,
