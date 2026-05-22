@@ -1,14 +1,15 @@
 import blackShield from '../../../public/logos/university.shield.rgb.black.svg'
 import whiteShield from '../../../public/logos/university.shield.rgb.white.svg'
+import pressLogo from '../../../public/logos/JHU-Logo-Padding-50.svg'
 
 const Menu = ({
-  menuOption,
+  menuFormat,
   useDarkTheme,
 }: {
-  menuOption: string
+  menuFormat: string
   useDarkTheme: boolean
 }) => {
-  if (menuOption == 'Slim') {
+  if (menuFormat == 'Slim') {
     return (
       <nav className='menu slim'>
         <a className='home-logo' href='/'>
@@ -25,10 +26,10 @@ const Menu = ({
             <div>About Us</div>
             <ul className='sub-main-menu'>
               <li>
-                <a href='/'>Our Organization</a>
+                <a href='#'>Our Organization</a>
               </li>
               <li>
-                <a href='/'>Our History</a>
+                <a href='#'>Our History</a>
               </li>
             </ul>
           </li>
@@ -37,7 +38,7 @@ const Menu = ({
     )
   }
 
-  if (menuOption == 'Layered') {
+  if (menuFormat == 'Layered') {
     return (
       <nav className='menu layered'>
         <ul></ul>
@@ -45,10 +46,29 @@ const Menu = ({
     )
   }
 
-  if (menuOption == 'Centered') {
+  if (menuFormat == 'Centered') {
     return (
       <nav className='menu centered'>
-        <ul></ul>
+        <a href='/'>
+          <img src={pressLogo} height={100} alt='' />
+        </a>
+        <ul className='main-menu'>
+          <li>
+            <a href='#'>About Us</a>
+          </li>
+          <li>
+            <a href='#'>Research</a>
+          </li>
+          <li>
+            <a href='#'>Publications</a>
+          </li>
+          <li>
+            <a href='#'>Conferences</a>
+          </li>
+          <li>
+            <a href='#'>Resources</a>
+          </li>
+        </ul>
       </nav>
     )
   }

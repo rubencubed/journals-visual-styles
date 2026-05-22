@@ -30,8 +30,18 @@ body {
 }
 
 #root {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
+  /* display: grid;
+  grid-template-columns: 2fr 3fr; */
+  display: flex;
+
+  #control-panel {
+    flex: 1 1 350px;
+    max-width: 450px;
+  }
+
+  #interface {
+    flex: 1 1 800px;
+  }
 
   height: 100%;
 }
@@ -51,12 +61,12 @@ body {
   }
 }
 
-.control-panel {
+#control-panel {
   background-color: #ccc;
   padding: 1rem;
 }
 
-.control-panel,
+#control-panel,
 #interface {
   max-height: 100vb;
   overflow: scroll auto;
@@ -64,14 +74,37 @@ body {
 
 #interface {
   background-color: var(--background-color);
+  color: var(--text-color);
+
+  p {
+    text-wrap: pretty;
+    color: var(--text-color);
+  }
 
   nav.menu {
     padding-inline: 5px;
+
+    a {
+      text-decoration: none;
+      color: var(--text-color);
+    }
 
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
+
+      &.main-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        color: var(--text-color);
+
+        li {
+          padding: .25em .5em;
+        }
+      }
     }
 
     &.slim {
@@ -95,18 +128,24 @@ body {
       }
 
       ul.main-menu {
-        display: flex;
-        flex-direction: row;
-
         flex-grow: 1;
-        align-items: center;
         justify-content: end;
-
-        color: var(--text-color)
       }
 
       ul.sub-main-menu {
         display: none;
+      }
+    }
+
+    &.centered {
+      color: var(--text-color);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: auto;
       }
     }
   }
@@ -146,11 +185,6 @@ h5,
 h6 {
   margin-block: 0;
   margin-inline: auto;
-}
-
-p {
-  text-wrap: pretty;
-  color: var(--text-color);
 }
 
 button {
@@ -206,37 +240,101 @@ a:active {
 
 /* Styles that can optionally be included */
 body:has(#linkFill:checked) {
-  a {
-    --transition-timing: .3s;
-    --link-offset: 4px;
+  main {
+    a {
+      --transition-timing: .3s;
+      --link-offset: 4px;
 
-    text-decoration: none;
-    color: var(--main-color) !important;
-    font-weight: 700;
-    position: relative;
-    z-index: 0;
+      text-decoration: none;
+      color: var(--main-color) !important;
+      font-weight: 700;
+      position: relative;
+      z-index: 0;
 
-    transition: color calc(var(--transition-timing) * 0.6) ease;
+      transition: color calc(var(--transition-timing) * 0.6) ease;
+    }
+
+    a:hover {
+      color: var(--background-color) !important;
+    }
+
+    a::before {
+      content: '';
+      background-color: var(--main-color);
+      position: absolute;
+      inset: auto 0 calc(var(--link-offset) * -1) 0;
+      height: var(--link-offset);
+      z-index: -1;
+
+      transition:
+        height var(--transition-timing) ease-in-out,
+        opacity var(--transition-timing) ease-in-out;
+    }
+
+    a:hover::before {
+      height: calc(100% - .125rem + 2 * var(--link-offset));
+    }
   }
+}
 
-  a:hover {
-    color: var(--background-color) !important;
+body:has(#menuFooterContrast:checked) {
+
+  nav.menu,
+  footer {
+    background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.175)) + 0.075) c h);
   }
+}
 
-  a::before {
-    content: '';
-    background-color: var(--main-color);
-    position: absolute;
-    inset: auto 0 calc(var(--link-offset) * -1) 0;
-    height: var(--link-offset);
-    z-index: -1;
+body:has(#menuUnderline:checked) {
 
-    transition:
-      height var(--transition-timing) ease-in-out,
-      opacity var(--transition-timing) ease-in-out;
+  nav.menu {
+    li a {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleY(0);
+        height: 5px;
+        bottom: -7px;
+        left: 0;
+        background-color: var(--main-color);
+        transition: transform 0.3s ease-out;
+      }
+
+      &:hover {
+        color: var(--main-color);
+
+        &::after {
+          transform: scaleY(1);
+          transform-origin: bottom center;
+        }
+      }
+
+      &:active {
+        color: var(--main-color);
+
+        &::after {
+          color: var(--main-color);
+          transition: transform 0.3s;
+          transform: scaleX(0.4);
+        }
+      }
+    }
   }
+}
 
-  a:hover::before {
-    height: calc(100% - .125rem + 2 * var(--link-offset));
+body:has(#menuHover:checked) {
+
+  nav.menu {
+    li:hover {
+      background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.825)) + 0.075) c h);
+
+      &,
+      a {
+        color: var(--background-color) !important;
+      }
+    }
   }
 }

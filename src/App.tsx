@@ -26,7 +26,7 @@ const paddingOptions = [
   { value: '1rem 2rem', label: 'Much More' },
 ]
 
-const menuOptions = [
+const menuFormats = [
   { value: 'Slim', label: 'Slim' },
   { value: 'Layered', label: 'Layered' },
   { value: 'Centered', label: 'Centered' },
@@ -38,7 +38,7 @@ function App() {
   ])
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
-  const [menu, setMenu] = useState('Slim')
+  const [menu, setMenu] = useState('Centered')
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--border-radius', borderRadius)
@@ -73,7 +73,7 @@ function App() {
 
   return (
     <>
-      <div className='control-panel'>
+      <div id='control-panel'>
         <ColorPicker name='Main' color={mainColor} setColor={setMainColor} />
 
         <RadioPicker
@@ -88,105 +88,111 @@ function App() {
           setSelectedOption={setPadding}
         />
         <RadioPicker
-          name='Menu Options'
-          options={menuOptions}
+          name='Menu Formats'
+          options={menuFormats}
           setSelectedOption={setMenu}
         />
         <section>
           <h2>Highlight Options</h2>
           <SwitchHolder id='linkFill' label='Link Fill' />
+          <SwitchHolder id='menuFooterContrast' label='Menu/Footer Contrast' />
+          <SwitchHolder id='menuUnderline' label='Menu Underline Effect' />
+          <SwitchHolder id='menuHover' label='Menu Hover Effect' />
         </section>
       </div>
 
       <div id='interface' style={{ backgroundColor }}>
-        <Menu menuOption={menu} useDarkTheme={backgroundColor === '#000000'} />
-        <h1 style={{ color: mainHex }}>This is a Heading 1</h1>
-        <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
-          porttitor erat, sed sollicitudin tellus.{' '}
-          <Link color={mainHex}>
-            Fusce congue dui fringilla malesuada hendrerit
-          </Link>
-          . Nulla bibendum mauris in diam pharetra hendrerit. Aenean consequat
-          maximus arcu ac molestie.
-        </Paragraph>
+        <Menu menuFormat={menu} useDarkTheme={backgroundColor === '#000000'} />
+        <main>
+          <h1 style={{ color: mainHex }}>This is a Heading 1</h1>
+          <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
+            porttitor erat, sed sollicitudin tellus.{' '}
+            <Link color={mainHex}>
+              Fusce congue dui fringilla malesuada hendrerit
+            </Link>
+            . Nulla bibendum mauris in diam pharetra hendrerit. Aenean consequat
+            maximus arcu ac molestie.
+          </Paragraph>
 
-        <Button
-          backgroundColor={mainHex}
-          color={backgroundColor}
-          borderRadius={borderRadius}
-          padding={padding}
-          content='Join Now'
-        />
+          <Button
+            backgroundColor={mainHex}
+            color={backgroundColor}
+            borderRadius={borderRadius}
+            padding={padding}
+            content='Join Now'
+          />
 
-        <Paragraph>
-          Fusce id dapibus lorem. Sed ut sapien lectus. Sed vel sollicitudin
-          lacus. Ut luctus lectus urna, molestie tempor elit suscipit id. Aenean
-          nec diam rhoncus, lacinia mi a, bibendum turpis.
-        </Paragraph>
+          <Paragraph>
+            Fusce id dapibus lorem. Sed ut sapien lectus. Sed vel sollicitudin
+            lacus. Ut luctus lectus urna, molestie tempor elit suscipit id.
+            Aenean nec diam rhoncus, lacinia mi a, bibendum turpis.
+          </Paragraph>
 
-        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
 
-        <Paragraph>
-          Vivamus vel iaculis nisl.{' '}
-          <Link color={mainHex}>Fusce tempor neque augue</Link>, a convallis
-          nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
-          dapibus.
-        </Paragraph>
-        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
-        <h3 style={{ color: textColor }}>This is a Heading 3</h3>
+          <Paragraph>
+            Vivamus vel iaculis nisl.{' '}
+            <Link color={mainHex}>Fusce tempor neque augue</Link>, a convallis
+            nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
+            dapibus.
+          </Paragraph>
+          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+          <h3 style={{ color: textColor }}>This is a Heading 3</h3>
 
-        <Paragraph>
-          <Link color={mainHex}>
-            Nulla nulla sapien, blandit ac placerat et, facilisis a ante
-          </Link>
-          . Nunc auctor ligula non metus congue gravida non a ante. Nullam id
-          aliquam mi.
-        </Paragraph>
+          <Paragraph>
+            <Link color={mainHex}>
+              Nulla nulla sapien, blandit ac placerat et, facilisis a ante
+            </Link>
+            . Nunc auctor ligula non metus congue gravida non a ante. Nullam id
+            aliquam mi.
+          </Paragraph>
 
-        <Paragraph>
-          Vivamus auctor eu neque quis fringilla. Curabitur molestie orci nulla.
-          In sed cursus nibh. Nulla sit amet ipsum condimentum, gravida neque
-          vel, commodo mi.
-        </Paragraph>
-        <h3 style={{ color: textColor }}>
-          <Link color={mainHex}>This is a Heading 3 and a Link</Link>
-        </h3>
+          <Paragraph>
+            Vivamus auctor eu neque quis fringilla. Curabitur molestie orci
+            nulla. In sed cursus nibh. Nulla sit amet ipsum condimentum, gravida
+            neque vel, commodo mi.
+          </Paragraph>
+          <h3 style={{ color: textColor }}>
+            <Link color={mainHex}>This is a Heading 3 and a Link</Link>
+          </h3>
 
-        <Paragraph>
-          Donec nec velit vitae est sollicitudin pharetra. Vestibulum sit amet
-          semper sem. Morbi id quam id nisl maximus lacinia.
-        </Paragraph>
+          <Paragraph>
+            Donec nec velit vitae est sollicitudin pharetra. Vestibulum sit amet
+            semper sem. Morbi id quam id nisl maximus lacinia.
+          </Paragraph>
 
-        <Paragraph>
-          <Link color={mainHex}>Cras a aliquet odio</Link>. Maecenas elementum
-          nibh eu ultrices efficitur. Morbi eget sem imperdiet, mattis orci ut,
-          scelerisque ipsum.
-        </Paragraph>
+          <Paragraph>
+            <Link color={mainHex}>Cras a aliquet odio</Link>. Maecenas elementum
+            nibh eu ultrices efficitur. Morbi eget sem imperdiet, mattis orci
+            ut, scelerisque ipsum.
+          </Paragraph>
 
-        <h4 style={{ color: textColor }}>This is a Heading 4</h4>
+          <h4 style={{ color: textColor }}>This is a Heading 4</h4>
 
-        <Paragraph>
-          Proin tristique elit eu tortor tristique, quis consequat nibh mattis.
-          Nullam a arcu non purus mollis accumsan.{' '}
-          <Link color={mainHex}>
-            Etiam elit leo, rutrum eget erat non, blandit luctus ante
-          </Link>
-          .
-        </Paragraph>
+          <Paragraph>
+            Proin tristique elit eu tortor tristique, quis consequat nibh
+            mattis. Nullam a arcu non purus mollis accumsan.{' '}
+            <Link color={mainHex}>
+              Etiam elit leo, rutrum eget erat non, blandit luctus ante
+            </Link>
+            .
+          </Paragraph>
 
-        <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
 
-        <Paragraph>
-          Pellentesque eleifend pulvinar tempus. Class aptent taciti sociosqu ad
-          litora torquent per conubia nostra, per inceptos himenaeos.
-        </Paragraph>
+          <Paragraph>
+            Pellentesque eleifend pulvinar tempus. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+          </Paragraph>
 
-        <Paragraph>
-          Etiam dui mi, porttitor auctor tellus a, facilisis vehicula enim.
-          Morbi tincidunt vitae urna in egestas. Integer mauris sapien, dapibus
-          eget facilisis quis, posuere non ex.
-        </Paragraph>
+          <Paragraph>
+            Etiam dui mi, porttitor auctor tellus a, facilisis vehicula enim.
+            Morbi tincidunt vitae urna in egestas. Integer mauris sapien,
+            dapibus eget facilisis quis, posuere non ex.
+          </Paragraph>
+        </main>
+        <footer>This is the footer content</footer>
       </div>
     </>
   )
