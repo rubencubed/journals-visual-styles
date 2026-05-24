@@ -82,7 +82,7 @@ body {
   }
 
   nav.menu {
-    padding-inline: 5px;
+    padding-inline-start: 5px;
 
     a {
       text-decoration: none;
@@ -117,7 +117,6 @@ body {
       a.home-logo {
         display: flex;
         align-items: center;
-        justify-content: end;
         gap: 5px;
 
         color: var(--text-color);
@@ -130,10 +129,51 @@ body {
       ul.main-menu {
         flex-grow: 1;
         justify-content: end;
+        align-items: stretch;
+
+        span.menu-arrow {
+          display: inline-block;
+          width: 1em;
+          height: 0.5625em;
+          padding-inline: 2px;
+
+          background-image: url('../public/menu-arrow.png');
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        >li {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          &:hover {
+            ul.sub-main-menu {
+              display: inline-block;
+              position: absolute;
+              top: 100%;
+            }
+          }
+
+        }
       }
 
       ul.sub-main-menu {
         display: none;
+        top: 100%;
+        right: 0;
+
+        text-align: end;
+
+        width: fit-content;
+        min-width: max-content;
+        background-color: var(--background-color);
+
+        li {
+          padding-block-end: 8px;
+        }
       }
     }
 
@@ -280,6 +320,7 @@ body:has(#linkFill:checked) {
 body:has(#menuFooterContrast:checked) {
 
   nav.menu,
+  nav.menu ul,
   footer {
     background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.175)) + 0.075) c h);
   }
@@ -332,7 +373,7 @@ body:has(#menuHover:checked) {
       background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.825)) + 0.075) c h);
 
       &,
-      a {
+      a:hover {
         color: var(--background-color) !important;
       }
     }

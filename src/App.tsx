@@ -101,7 +101,7 @@ function App() {
         </section>
       </div>
 
-      <div id='interface' style={{ backgroundColor }}>
+      <div id='interface'>
         <Menu menuFormat={menu} useDarkTheme={backgroundColor === '#000000'} />
         <main>
           <h1 style={{ color: mainHex }}>This is a Heading 1</h1>

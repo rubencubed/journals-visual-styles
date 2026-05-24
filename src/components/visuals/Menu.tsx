@@ -19,17 +19,48 @@ const Menu = ({
             src={useDarkTheme ? whiteShield : blackShield}
             alt='Go to front page'
           />
-          Hopkins Studies
+          <div>Hopkins Studies</div>
         </a>
         <ul className='main-menu'>
           <li>
-            <div>About Us</div>
+            <div>
+              About Us
+              <span className='menu-arrow' />
+            </div>
             <ul className='sub-main-menu'>
               <li>
                 <a href='#'>Our Organization</a>
               </li>
               <li>
                 <a href='#'>Our History</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+              Resources
+              <span className='menu-arrow' />
+            </div>
+            <ul className='sub-main-menu'>
+              <li>
+                <a href='#'>Research Support</a>
+              </li>
+              <li>
+                <a href='#'>Conferences</a>
+              </li>
+              <li>
+                <a href='#'>Shop</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+              News
+              <span className='menu-arrow' />
+            </div>
+            <ul className='sub-main-menu'>
+              <li>
+                <a href='#'>Archived Stories</a>
               </li>
             </ul>
           </li>
