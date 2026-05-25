@@ -377,7 +377,7 @@ body:has(#menuHover:checked) {
       background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.825)) + 0.075) c h);
 
       &,
-      a:hover {
+      >a {
         color: var(--background-color) !important;
       }
     }
