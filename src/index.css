@@ -177,6 +177,10 @@ body {
       }
     }
 
+    &.layered {
+      background-color: red;
+    }
+
     &.centered {
       color: var(--text-color);
 
