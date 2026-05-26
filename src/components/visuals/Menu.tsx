@@ -2,6 +2,8 @@ import blackShield from '../../../public/logos/university.shield.rgb.black.svg'
 import whiteShield from '../../../public/logos/university.shield.rgb.white.svg'
 import pressLogo from '../../../public/logos/JHU-Logo-Padding-50.svg'
 
+import Search from './Search'
+
 import { useState } from 'react'
 
 const layeredMenuItems = [
@@ -96,7 +98,11 @@ const Menu = ({
   if (menuFormat == 'Layered') {
     return (
       <nav className='menu layered'>
-        <ul>
+        <a href='#'>
+          <img src={pressLogo} height={100} alt='' />
+        </a>
+        <Search menuOption={menuFormat} />
+        <ul className='main-menu'>
           {layeredMenuItems.map((menuItem, index) => {
             return (
               <li key={index} onClick={() => toggleMenu(index)}>
@@ -105,7 +111,11 @@ const Menu = ({
                   <span className='menu-arrow' />
                   <ul className='sub-main-menu' hidden={!openMenuItem[index]}>
                     {menuItem.sub.map((submenuItem, index) => {
-                      return <li key={index}>{submenuItem}</li>
+                      return (
+                        <li key={index}>
+                          <a href='#'>{submenuItem}</a>
+                        </li>
+                      )
                     })}
                   </ul>
                 </div>
@@ -120,7 +130,7 @@ const Menu = ({
   if (menuFormat == 'Centered') {
     return (
       <nav className='menu centered'>
-        <a href='/'>
+        <a href='#'>
           <img src={pressLogo} height={100} alt='' />
         </a>
         <ul className='main-menu'>

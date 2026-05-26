@@ -38,7 +38,7 @@ function App() {
   ])
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
-  const [menu, setMenu] = useState('Centered')
+  const [menu, setMenu] = useState('Layered')
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--border-radius', borderRadius)

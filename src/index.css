@@ -126,6 +126,16 @@ body {
         font-family: 'Times New Roman', Times, serif;
       }
 
+      .search-icon {
+        display: inline-block;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-inline: 5px;
+
+        background-color: var(--text-color);
+        mask: url('/Search_Icon.svg') center / contain no-repeat;
+      }
+
       ul.main-menu {
         flex-grow: 1;
         justify-content: end;
@@ -135,12 +145,10 @@ body {
           display: inline-block;
           width: 1em;
           height: 0.5625em;
-          padding-inline: 2px;
+          margin-inline: 5px;
 
-          background-image: url('../public/menu-arrow.png');
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
+          background-color: var(--text-color);
+          mask: url('/menu-arrow.png') center / contain no-repeat;
         }
 
         >li {
@@ -152,8 +160,6 @@ body {
           &:hover {
             ul.sub-main-menu {
               display: inline-block;
-              position: absolute;
-              top: 100%;
             }
           }
 
@@ -161,6 +167,7 @@ body {
       }
 
       ul.sub-main-menu {
+        position: absolute;
         display: none;
         top: 100%;
         right: 0;
@@ -178,7 +185,48 @@ body {
     }
 
     &.layered {
-      background-color: red;
+      ul.main-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        margin-inline: auto;
+        max-width: max-content;
+
+        >li {
+          position: relative;
+
+          ul.sub-main-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+
+            width: fit-content;
+            min-width: max-content;
+            background-color: var(--background-color);
+          }
+        }
+      }
+
+      span.menu-arrow {
+        display: inline-block;
+        width: 1em;
+        height: 0.5625em;
+        margin-inline: 5px;
+
+        background-color: var(--text-color);
+        mask: url('/menu-arrow.png') center / contain no-repeat;
+      }
+
+      .search-icon {
+        display: inline-block;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-inline: 5px;
+
+        background-color: var(--text-color);
+        mask: url('/Search_Icon.svg') center / contain no-repeat;
+      }
     }
 
     &.centered {
@@ -326,7 +374,7 @@ body:has(#menuFooterContrast:checked) {
   nav.menu,
   nav.menu ul,
   footer {
-    background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.175)) + 0.075) c h);
+    background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.175)) + 0.075) c h) !important;
   }
 }
 
@@ -375,6 +423,10 @@ body:has(#menuHover:checked) {
   nav.menu {
     li:hover {
       background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.825)) + 0.075) c h);
+
+      span.menu-arrow {
+        background-color: var(--background-color);
+      }
 
       &,
       >a {
