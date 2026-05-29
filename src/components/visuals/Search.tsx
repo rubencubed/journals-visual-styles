@@ -1,23 +1,21 @@
 import type { MenuOption } from '../../utils/types'
-import searchIcon from '../../../public/Search_Icon.svg'
 
-const Search = ({
-  menuOption,
-  setShowPopup,
-}: {
-  menuOption: MenuOption
-  setShowPopup?: () => void
-}) => {
+const Search = ({ menuOption }: { menuOption: MenuOption }) => {
   if (menuOption == 'Slim' || menuOption == 'Layered') {
     return (
-      <div onClick={setShowPopup} className='search-icon'>
-        <img
-          src={searchIcon}
-          alt='Open Search Menu (Popup)'
-          height={25}
-          width={25}
-        />
-      </div>
+      <>
+        <button
+          command='show-modal'
+          commandfor='search-form'
+          className='search'
+        ></button>
+        <dialog closedby='any' id='search-form' className='search-form'>
+          <form action='' method='dialog'>
+            <input type='text' />
+            <input type='submit' value='Search' />
+          </form>
+        </dialog>
+      </>
     )
   }
   return <div></div>

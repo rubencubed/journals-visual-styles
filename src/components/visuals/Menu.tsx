@@ -1,6 +1,6 @@
-import blackShield from '../../../public/logos/university.shield.rgb.black.svg'
-import whiteShield from '../../../public/logos/university.shield.rgb.white.svg'
-import pressLogo from '../../../public/logos/JHU-Logo-Padding-50.svg'
+import blackShield from '/logos/university.shield.rgb.black.svg?url'
+import whiteShield from '/logos/university.shield.rgb.white.svg?url'
+import pressLogo from '/logos/JHU-Logo-Padding-50.svg?url'
 
 import Search from './Search'
 
@@ -98,10 +98,12 @@ const Menu = ({
   if (menuFormat == 'Layered') {
     return (
       <nav className='menu layered'>
-        <a href='#'>
-          <img src={pressLogo} height={100} alt='' />
-        </a>
-        <Search menuOption={menuFormat} />
+        <div className='headWrapper'>
+          <a href='#'>
+            <img src={pressLogo} height={100} alt='' />
+          </a>
+          <Search menuOption={menuFormat} />
+        </div>
         <ul className='main-menu'>
           {layeredMenuItems.map((menuItem, index) => {
             return (
