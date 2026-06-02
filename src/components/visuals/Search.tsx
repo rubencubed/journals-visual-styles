@@ -5,6 +5,7 @@ const Search = ({ menuOption }: { menuOption: MenuOption }) => {
     return (
       <>
         <button
+          // @ts-expect-error HTML command/commandfor are valid but not in React TS types yet
           command='show-modal'
           commandfor='search-form'
           className='search'
