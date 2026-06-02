@@ -4,10 +4,11 @@ import RadioPicker from './components/selectors/RadioPicker'
 import ColorPicker from './components/selectors/ColorPicker'
 import SwitchHolder from './components/selectors/SwitchHolder'
 
+import Menu from './components/visuals/Menu'
 import Button from './components/visuals/Button'
 import Link from './components/visuals/Link'
 import Paragraph from './components/visuals/Paragraph'
-import Menu from './components/visuals/Menu'
+import Accordion from './components/visuals/Accordion'
 
 import calculateContrast from './utils/contrast'
 import { convertHexColorToDecimalTuple, decimalToHex } from './utils/conversion'
@@ -38,7 +39,7 @@ function App() {
   ])
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
-  const [menu, setMenu] = useState('Layered')
+  const [menu, setMenu] = useState('Slim')
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--border-radius', borderRadius)
@@ -137,6 +138,7 @@ function App() {
             nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
             dapibus.
           </Paragraph>
+          <Accordion />
           <h2 style={{ color: textColor }}>This is a Heading 2</h2>
           <h3 style={{ color: textColor }}>This is a Heading 3</h3>
 

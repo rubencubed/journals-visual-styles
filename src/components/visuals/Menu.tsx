@@ -55,10 +55,14 @@ const Menu = ({
             </div>
             <ul className='sub-main-menu'>
               <li>
-                <a href='#'>Our Organization</a>
+                <a href='#'>
+                  <span className='link-text'>Our Organization</span>
+                </a>
               </li>
               <li>
-                <a href='#'>Our History</a>
+                <a href='#'>
+                  <span className='link-text'>Our History</span>
+                </a>
               </li>
             </ul>
           </li>
@@ -69,13 +73,19 @@ const Menu = ({
             </div>
             <ul className='sub-main-menu'>
               <li>
-                <a href='#'>Research Support</a>
+                <a href='#'>
+                  <span className='link-text'>Research Support</span>
+                </a>
               </li>
               <li>
-                <a href='#'>Conferences</a>
+                <a href='#'>
+                  <span className='link-text'>Conferences</span>
+                </a>
               </li>
               <li>
-                <a href='#'>Shop</a>
+                <a href='#'>
+                  <span className='link-text'>Shop</span>
+                </a>
               </li>
             </ul>
           </li>
@@ -86,7 +96,9 @@ const Menu = ({
             </div>
             <ul className='sub-main-menu'>
               <li>
-                <a href='#'>Archived Stories</a>
+                <a href='#'>
+                  <span className='link-text'>Archived Stories</span>
+                </a>
               </li>
             </ul>
           </li>
@@ -115,7 +127,9 @@ const Menu = ({
                     {menuItem.sub.map((submenuItem, index) => {
                       return (
                         <li key={index}>
-                          <a href='#'>{submenuItem}</a>
+                          <a href='#'>
+                            <span className='link-text'>{submenuItem}</span>
+                          </a>
                         </li>
                       )
                     })}
@@ -137,19 +151,29 @@ const Menu = ({
         </a>
         <ul className='main-menu'>
           <li>
-            <a href='#'>About Us</a>
+            <a href='#'>
+              <span className='link-text'>About Us</span>
+            </a>
           </li>
           <li>
-            <a href='#'>Research</a>
+            <a href='#'>
+              <span className='link-text'>Research</span>
+            </a>
           </li>
           <li>
-            <a href='#'>Publications</a>
+            <a href='#'>
+              <span className='link-text'>Publications</span>
+            </a>
           </li>
           <li>
-            <a href='#'>Conferences</a>
+            <a href='#'>
+              <span className='link-text'>Conferences</span>
+            </a>
           </li>
           <li>
-            <a href='#'>Resources</a>
+            <a href='#'>
+              <span className='link-text'>Resources</span>
+            </a>
           </li>
         </ul>
       </nav>

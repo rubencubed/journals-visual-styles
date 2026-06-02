@@ -12,6 +12,11 @@
   --main-color: #002D72;
   --text-color: #000000;
   --background-color: #ffffff;
+  --padding: auto;
+  --border-radius: auto;
+
+  --container-padding: calc(var(--padding) * 0.8);
+  --container-border-radius: var(--border-radius);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -82,6 +87,47 @@ body {
     color: var(--text-color);
   }
 
+  details {
+    border-radius: var(--container-border-radius);
+    padding: var(--container-padding);
+
+    margin-block-end: .5rem;
+
+    summary {
+      padding: .5rem 1rem;
+      cursor: pointer;
+      border: 1px solid gray;
+
+      user-select: none;
+
+      border-radius: var(--container-border-radius);
+
+      +* {
+        margin-block-start: 0rem;
+      }
+    }
+
+    :last-child {
+      margin-block-end: 0rem;
+    }
+
+    &:open {
+
+      summary {
+        border-radius: var(--container-border-radius) var(--container-border-radius) 0 0;
+      }
+
+      &::details-content {
+        border-color: gray;
+        border-style: solid;
+        border-width: 0 1px 1px 1px;
+        border-radius: 0 0 var(--container-border-radius) var(--container-border-radius);
+
+        padding: .5rem;
+      }
+    }
+  }
+
   nav.menu {
     padding-inline-start: 5px;
 
@@ -102,9 +148,9 @@ body {
 
         color: var(--text-color);
 
-        li {
+        /* li {
           padding: .25em .5em;
-        }
+        } */
       }
     }
 
@@ -141,6 +187,7 @@ body {
         flex-grow: 1;
         justify-content: end;
         align-items: stretch;
+        gap: 5px;
 
         span.menu-arrow {
           display: inline-block;
@@ -180,7 +227,14 @@ body {
         background-color: var(--background-color);
 
         li {
-          padding-block-end: 8px;
+          display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+        }
+
+        a {
+          padding: .5rem;
+          width: 100%;
         }
       }
     }
@@ -196,6 +250,7 @@ body {
 
         >li {
           position: relative;
+          padding: .5em 1em;
 
           ul.sub-main-menu {
             position: absolute;
@@ -205,6 +260,17 @@ body {
             width: fit-content;
             min-width: max-content;
             background-color: var(--background-color);
+
+            li {
+              display: flex;
+              align-items: stretch;
+              justify-content: stretch;
+            }
+
+            a {
+              padding: .5rem;
+              width: 100%;
+            }
           }
         }
       }
@@ -334,6 +400,19 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      ul.main-menu {
+        li {
+          display: flex;
+          align-items: stretch;
+          justify-content: stretch;
+        }
+
+        a {
+          padding: .5rem;
+          width: 100%;
+        }
+      }
 
       img {
         width: auto;
@@ -468,9 +547,11 @@ body:has(#menuUnderline:checked) {
 
   nav.menu {
     li a {
-      position: relative;
+      .link-text {
+        position: relative;
+      }
 
-      &::after {
+      .link-text::after {
         content: '';
         position: absolute;
         width: 100%;
@@ -485,7 +566,7 @@ body:has(#menuUnderline:checked) {
       &:hover {
         color: var(--main-color);
 
-        &::after {
+        .link-text::after {
           transform: scaleY(1);
           transform-origin: bottom center;
         }
@@ -494,7 +575,7 @@ body:has(#menuUnderline:checked) {
       &:active {
         color: var(--main-color);
 
-        &::after {
+        .link-text::after {
           color: var(--main-color);
           transition: transform 0.3s;
           transform: scaleX(0.4);
