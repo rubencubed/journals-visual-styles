@@ -14,6 +14,7 @@
   --background-color: #ffffff;
   --padding: auto;
   --border-radius: auto;
+  --transition-timing: 500ms;
 
   --container-padding: calc(var(--padding) * 0.8);
   --container-border-radius: var(--border-radius);
@@ -147,31 +148,11 @@ body {
         align-items: center;
 
         color: var(--text-color);
-
-        /* li {
-          padding: .25em .5em;
-        } */
       }
     }
 
     &.slim {
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-
       height: 40px;
-
-      a.home-logo {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-
-        color: var(--text-color);
-
-        text-decoration: none;
-        font-size: 28px;
-        font-family: 'Times New Roman', Times, serif;
-      }
 
       .search-icon {
         display: inline-block;
@@ -187,7 +168,22 @@ body {
         flex-grow: 1;
         justify-content: end;
         align-items: stretch;
-        gap: 5px;
+
+        max-height: 100%;
+
+        a.home-logo {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          color: var(--text-color);
+
+          margin-inline-end: auto;
+
+          text-decoration: none;
+          font-size: 28px;
+          font-family: 'Times New Roman', Times, serif;
+        }
 
         span.menu-arrow {
           display: inline-block;
@@ -205,20 +201,40 @@ body {
           flex-direction: row;
           align-items: center;
 
+          padding-inline: .5em;
+
           &:hover {
             ul.sub-main-menu {
               display: inline-block;
+              opacity: 1;
+              transition: opacity var(--transition-timing) ease,
+                display var(--transition-timing) ease allow-discrete;
+            }
+
+            @starting-style {
+              ul.sub-main-menu {
+                opacity: 0;
+              }
             }
           }
 
+          /* &:not(:hover) {
+            ul.sub-main-menu {
+              opacity: 0;
+            }
+          } */
         }
       }
 
       ul.sub-main-menu {
         position: absolute;
         display: none;
+        opacity: 0;
         top: 100%;
         right: 0;
+
+        transition: opacity .3s ease,
+          display .3s ease allow-discrete;
 
         text-align: end;
 
@@ -249,13 +265,26 @@ body {
         max-width: max-content;
 
         >li {
-          position: relative;
           padding: .5em 1em;
+          anchor-scope: all;
+          anchor-name: --toggle-button;
+
+          button {
+            all: unset;
+          }
 
           ul.sub-main-menu {
             position: absolute;
-            top: 100%;
-            left: 0;
+            position-anchor: --toggle-button;
+            top: anchor(bottom);
+            left: anchor(left);
+            position-try-fallbacks: --below-right, --below-left;
+
+            border: none;
+
+            &::backdrop {
+              display: none;
+            }
 
             width: fit-content;
             min-width: max-content;
@@ -512,8 +541,6 @@ a:active {
 body:has(#linkFill:checked) {
   main {
     a {
-      --transition-timing: .5s;
-
       background-image: linear-gradient(var(--main-color), var(--main-color));
       background-position: center bottom;
       background-size: 100% 1px;
@@ -587,12 +614,22 @@ body:has(#menuUnderline:checked) {
 
 body:has(#menuHover:checked) {
 
-  nav.menu {
-    li:hover {
+  nav.menu li {
+    transition: background-color var(--transition-timing) ease,
+      color var(--transition-timing) ease;
+
+    span.menu-arrow {
+      transition: background-color var(--transition-timing) ease;
+    }
+
+    &:hover {
+      /* invert bg color to get something near text color... to use as bg color */
       background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.825)) + 0.075) c h);
 
+      /* use background color as text color */
       span.menu-arrow {
         background-color: var(--background-color);
+        transition: background-color var(--transition-timing) ease;
       }
 
       &,
@@ -601,4 +638,17 @@ body:has(#menuHover:checked) {
       }
     }
   }
+}
+
+/* Positions */
+@position-try --below-right {
+  inset: unset;
+  top: anchor(bottom);
+  left: anchor(left)
+}
+
+@position-try --below-left {
+  inset: unset;
+  top: anchor(bottom);
+  right: anchor(right)
 }

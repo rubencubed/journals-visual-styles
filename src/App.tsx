@@ -89,7 +89,7 @@ function App() {
           setSelectedOption={setPadding}
         />
         <RadioPicker
-          name='Menu Formats'
+          name='Menu Format'
           options={menuFormats}
           setSelectedOption={setMenu}
         />
