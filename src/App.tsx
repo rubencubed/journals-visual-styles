@@ -138,7 +138,7 @@ function App() {
             nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
             dapibus.
           </Paragraph>
-          <Accordion />
+          <Accordion name='faqs' />
           <h2 style={{ color: textColor }}>This is a Heading 2</h2>
           <h3 style={{ color: textColor }}>This is a Heading 3</h3>
 
