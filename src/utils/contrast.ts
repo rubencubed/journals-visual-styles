@@ -18,10 +18,20 @@ const calculateContrast = (rgb: [number, number, number]) => {
   const contrastWithBlack = (lumRGB + 0.05) / 0.05
   const contrastWithWhite = 1.05 / (lumRGB + 0.05)
 
-  if (contrastWithBlack > contrastWithWhite) {
+  // slightly prefer white background
+  if (contrastWithWhite >= 7) {
+    return { color: '#ffffff', contrast: contrastWithWhite }
+  }
+
+  if (contrastWithBlack >= 7) {
     return { color: '#000000', contrast: contrastWithBlack }
   }
-  return { color: '#ffffff', contrast: contrastWithWhite }
+
+  if (contrastWithWhite >= 4.5) {
+    return { color: '#ffffff', contrast: contrastWithWhite }
+  }
+
+  return { color: '#000000', contrast: contrastWithBlack }
 }
 
 export default calculateContrast
