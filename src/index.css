@@ -104,9 +104,10 @@ body {
       block-size: 0;
 
       /* progressive enhancement */
-      transition: block-size var(--transition-timing) ease,
-        content-visibility var(--transition-timing) ease;
-      transition-behavior: allow-discrete;
+      @supports (interpolate-size: allow-keywords) {
+        transition: block-size var(--transition-timing) ease allow-discrete,
+          content-visibility var(--transition-timing) ease allow-discrete;
+      }
     }
 
     details[open]::details-content {
@@ -162,11 +163,6 @@ body {
 
     summary::-webkit-details-marker {
       display: none;
-    }
-
-    .panel hr {
-      border: 0;
-      border-top: 1px solid var(--text-color);
     }
   }
 
@@ -276,8 +272,8 @@ body {
         top: 100%;
         right: 0;
 
-        transition: opacity .3s ease,
-          display .3s ease allow-discrete;
+        transition: opacity var(--transition-timing) ease,
+          display var(--transition-timing) ease allow-discrete;
 
         text-align: end;
 
@@ -405,8 +401,7 @@ body {
         background-color: transparent;
         padding: 0;
 
-        transition: opacity 300ms ease-in;
-        transition-behavior: allow-discrete;
+        transition: opacity 300ms ease-in allow-diiscrete;
 
         width: min(calc(100% - 2rem), 400px);
 
@@ -447,8 +442,7 @@ body {
 
         &::backdrop {
           background-color: oklch(0 0 0 / 0.7);
-          transition: opacity 200ms ease-in;
-          transition-behavior: allow-discrete;
+          transition: opacity 200ms ease-in allow-discrete;
         }
       }
 
