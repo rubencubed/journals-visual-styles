@@ -21,7 +21,7 @@ const Menu = ({
     return (
       <nav className='menu slim'>
         <ul className='main-menu'>
-          <a className='home-logo' href='/'>
+          <a className='home-logo' href='#'>
             <img
               height={40}
               width={40}

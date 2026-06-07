@@ -1,23 +1,18 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(10, 10, 10, 0.87);
   background-color: #eee;
-
-  user-select: none;
 
   --main-color: #002D72;
   --text-color: #000000;
   --background-color: #ffffff;
   --padding: auto;
   --border-radius: auto;
-  --transition-timing: 500ms;
+  --transition-timing: 750ms;
 
   --container-padding: calc(var(--padding) * 0.8);
   --container-border-radius: var(--border-radius);
+
+  interpolate-size: allow-keywords;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -36,8 +31,6 @@ body {
 }
 
 #root {
-  /* display: grid;
-  grid-template-columns: 2fr 3fr; */
   display: flex;
 
   #control-panel {
@@ -69,7 +62,7 @@ body {
 }
 
 #control-panel {
-  background-color: #ccc;
+  background-color: #aaa;
   padding: 1rem;
 }
 
@@ -98,6 +91,7 @@ body {
     border-top: 2px solid var(--main-color);
 
     details {
+      overflow: hidden;
       border-bottom: 1px solid var(--text-color);
     }
 
@@ -105,16 +99,50 @@ body {
       transform: rotate(180deg) translateY(50%);
     }
 
+    details::details-content {
+      background-color: oklch(from var(--background-color) calc(abs(calc(l - 0.175)) + 0.075) c h) !important;
+      block-size: 0;
+
+      /* progressive enhancement */
+      transition: block-size var(--transition-timing) ease,
+        content-visibility var(--transition-timing) ease;
+      transition-behavior: allow-discrete;
+    }
+
+    details[open]::details-content {
+      block-size: auto;
+    }
+
+    details>:not(summary) {
+      padding-inline: .75rem;
+      margin-inline: auto;
+
+      & {
+        margin-block: 1em 0;
+
+        &:nth-child(2) {
+          margin-block-start: 0;
+          padding-block-start: 1em;
+        }
+
+        &:last-child {
+          margin-block-end: 0;
+          padding-block-end: 1em;
+        }
+      }
+    }
+
     summary {
       list-style: none;
-      padding: 1rem;
+      padding: .75rem 1rem;
       cursor: pointer;
       position: relative;
-      font-size: 28px;
+      font-size: 1.5em;
       color: var(--main-color);
+      user-select: none;
 
       &::after {
-        --size: 36px;
+        --size: 2rem;
         position: absolute;
         right: 1rem;
         top: 50%;
@@ -126,7 +154,7 @@ body {
         background: var(--main-color);
         color: var(--background-color);
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 1rem;
+        font-size: calc(var(--size) * .67);
         line-height: var(--size);
         text-align: center;
       }
@@ -144,6 +172,8 @@ body {
 
   nav.menu {
     padding-inline-start: 5px;
+
+    user-select: none;
 
     a {
       text-decoration: none;
@@ -600,7 +630,7 @@ body:has(#menuUnderline:checked) {
         bottom: -7px;
         left: 0;
         background-color: var(--main-color);
-        transition: transform 0.3s ease-out;
+        transition: transform 300ms ease-out;
       }
 
       &:hover {

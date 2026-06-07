@@ -22,9 +22,15 @@ const borderRadiusOptions = [
 
 const paddingOptions = [
   { value: '0', label: 'Trimmed' },
-  { value: 'revert', label: 'Standard' },
-  { value: '.5rem 1rem', label: 'More' },
-  { value: '1rem 2rem', label: 'Much More' },
+  { value: 'revert', label: 'Default' },
+  { value: '.75rem 1.5rem', label: 'More' },
+]
+
+const transitionTimingOptions = [
+  { value: '0ms', label: 'None' },
+  { value: '250ms', label: '250ms' },
+  { value: '500ms', label: '500ms' },
+  { value: '750ms', label: '750ms' },
 ]
 
 const menuFormats = [
@@ -39,6 +45,7 @@ function App() {
   ])
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
+  const [transitionTiming, setTransitionTiming] = useState('0')
   const [menu, setMenu] = useState('Slim')
 
   useLayoutEffect(() => {
@@ -48,6 +55,13 @@ function App() {
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--padding', padding)
   }, [padding])
+
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty(
+      '--transition-timing',
+      transitionTiming,
+    )
+  }, [transitionTiming])
 
   const mainHex = useMemo(() => decimalToHex(mainColor), [mainColor])
   useLayoutEffect(() => {
@@ -88,6 +102,13 @@ function App() {
           options={paddingOptions}
           setSelectedOption={setPadding}
         />
+
+        <RadioPicker
+          name='Animation Delay'
+          options={transitionTimingOptions}
+          setSelectedOption={setTransitionTiming}
+        />
+
         <RadioPicker
           name='Menu Format'
           options={menuFormats}
