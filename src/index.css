@@ -79,6 +79,10 @@ body {
   main {
     max-width: min(1200px, calc(100% - 1rem));
     margin-inline: auto;
+
+    >* {
+      margin-block: 10px;
+    }
   }
 
   p,
@@ -523,14 +527,6 @@ h6 {
   margin-inline: auto;
 }
 
-button {
-  border: none;
-  font-size: 1.25rem;
-  user-select: none;
-  margin-inline: auto;
-  display: block;
-}
-
 input:where([type="checkbox"][role="switch"]) {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -574,10 +570,37 @@ a:active {
   text-decoration: none;
 }
 
+a.call-out {
+  --call-out-border-radius: var(--border-radius);
+
+  text-decoration: none;
+  font-size: 1.25rem;
+  margin-inline: auto;
+  display: block;
+  text-align: center;
+
+  background-color: var(--call-out-background-color);
+  color: var(--background-color);
+  border-radius: var(--call-out-border-radius);
+
+  padding-inline: calc((var(--padding) * 1.5) + 0.25rem);
+  padding-block: calc((var(--padding) * 1) + 0.25rem);
+
+  &.primary {
+    --call-out-background-color: var(--main-color);
+  }
+
+  &.small {
+    max-width: max-content;
+  }
+}
+
 /* Styles that can optionally be included */
 body:has(#linkFill:checked) {
   main {
-    a {
+
+    p a,
+    li a {
       background-image: linear-gradient(var(--main-color), var(--main-color));
       background-position: center bottom;
       background-size: 100% 1px;
@@ -587,8 +610,8 @@ body:has(#linkFill:checked) {
       color: var(--main-color) !important;
       font-weight: 700;
 
-      transition: color var(--transition-timing) ease,
-        background-size var(--transition-timing) ease;
+      transition: color var(--transition-timing, 250ms) ease,
+        background-size var(--transition-timing, 250ms) ease;
 
       &:hover {
         background-size: 100% 100%;

@@ -5,7 +5,6 @@ import ColorPicker from './components/selectors/ColorPicker'
 import SwitchHolder from './components/selectors/SwitchHolder'
 
 import Menu from './components/visuals/Menu'
-import Button from './components/visuals/Button'
 import Link from './components/visuals/Link'
 import Paragraph from './components/visuals/Paragraph'
 import Accordion from './components/visuals/Accordion'
@@ -21,9 +20,9 @@ const borderRadiusOptions = [
 ]
 
 const paddingOptions = [
-  { value: '0', label: 'Trimmed' },
-  { value: 'revert', label: 'Default' },
-  { value: '.75rem 1.5rem', label: 'More' },
+  { value: '0rem', label: 'Trimmed' },
+  { value: '.25rem', label: 'Default' },
+  { value: '.75rem', label: 'More' },
 ]
 
 const transitionTimingOptions = [
@@ -130,20 +129,17 @@ function App() {
           <Paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
             porttitor erat, sed sollicitudin tellus.{' '}
-            <Link color={mainHex}>
-              Fusce congue dui fringilla malesuada hendrerit
-            </Link>
-            . Nulla bibendum mauris in diam pharetra hendrerit. Aenean consequat
-            maximus arcu ac molestie.
+            <Link>Fusce congue dui fringilla malesuada hendrerit</Link>. Nulla
+            bibendum mauris in diam pharetra hendrerit. Aenean consequat maximus
+            arcu ac molestie.
           </Paragraph>
 
-          <Button
-            backgroundColor={mainHex}
-            color={backgroundColor}
-            borderRadius={borderRadius}
-            padding={padding}
-            content='Join Now'
-          />
+          <a href='#' className='call-out primary small'>
+            Join Now
+          </a>
+          <a href='#' className='call-out primary full'>
+            Join Now
+          </a>
 
           <Paragraph>
             Fusce id dapibus lorem. Sed ut sapien lectus. Sed vel sollicitudin
@@ -154,17 +150,16 @@ function App() {
           <h2 style={{ color: textColor }}>This is a Heading 2</h2>
 
           <Paragraph>
-            Vivamus vel iaculis nisl.{' '}
-            <Link color={mainHex}>Fusce tempor neque augue</Link>, a convallis
-            nulla faucibus sit amet. Maecenas porttitor elementum ex vitae
-            dapibus.
+            Vivamus vel iaculis nisl. <Link>Fusce tempor neque augue</Link>, a
+            convallis nulla faucibus sit amet. Maecenas porttitor elementum ex
+            vitae dapibus.
           </Paragraph>
           <Accordion name='faqs' />
           <h2 style={{ color: textColor }}>This is a Heading 2</h2>
           <h3 style={{ color: textColor }}>This is a Heading 3</h3>
 
           <Paragraph>
-            <Link color={mainHex}>
+            <Link>
               Nulla nulla sapien, blandit ac placerat et, facilisis a ante
             </Link>
             . Nunc auctor ligula non metus congue gravida non a ante. Nullam id
@@ -177,7 +172,7 @@ function App() {
             neque vel, commodo mi.
           </Paragraph>
           <h3 style={{ color: textColor }}>
-            <Link color={mainHex}>This is a Heading 3 and a Link</Link>
+            <Link>This is a Heading 3 and a Link</Link>
           </h3>
 
           <Paragraph>
@@ -186,9 +181,9 @@ function App() {
           </Paragraph>
 
           <Paragraph>
-            <Link color={mainHex}>Cras a aliquet odio</Link>. Maecenas elementum
-            nibh eu ultrices efficitur. Morbi eget sem imperdiet, mattis orci
-            ut, scelerisque ipsum.
+            <Link>Cras a aliquet odio</Link>. Maecenas elementum nibh eu
+            ultrices efficitur. Morbi eget sem imperdiet, mattis orci ut,
+            scelerisque ipsum.
           </Paragraph>
 
           <h4 style={{ color: textColor }}>This is a Heading 4</h4>
@@ -196,7 +191,7 @@ function App() {
           <Paragraph>
             Proin tristique elit eu tortor tristique, quis consequat nibh
             mattis. Nullam a arcu non purus mollis accumsan.{' '}
-            <Link color={mainHex}>
+            <Link>
               Etiam elit leo, rutrum eget erat non, blandit luctus ante
             </Link>
             .

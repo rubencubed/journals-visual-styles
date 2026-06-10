@@ -1,15 +1,5 @@
-const Link = ({
-  color,
-  children,
-}: {
-  color: string
-  children: React.ReactNode
-}) => {
-  return (
-    <a href='/' style={{ color }}>
-      {children}
-    </a>
-  )
+const Link = ({ children }: { children: React.ReactNode }) => {
+  return <a href='/'>{children}</a>
 }
 
 export default Link
