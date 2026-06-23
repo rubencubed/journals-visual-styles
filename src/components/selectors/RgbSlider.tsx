@@ -47,7 +47,7 @@ const RgbSlider = ({
 }) => {
   const hueGradient = 'linear-gradient(to right, black, ' + colorName + ')'
   return (
-    <>
+    <div>
       <p className='rgb-slider-label'>
         {colorName}: {colorValue}
       </p>
@@ -66,7 +66,7 @@ const RgbSlider = ({
         value={colorValue}
         onChange={(e) => colorChange(colorName, parseInt(e.target.value))}
       />
-    </>
+    </div>
   )
 }
 

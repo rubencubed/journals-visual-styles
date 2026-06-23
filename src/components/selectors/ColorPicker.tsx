@@ -56,27 +56,16 @@ const ColorPicker = ({
     <div className='color-picker'>
       <h2>{name} Color</h2>
       <div className='color-input'>
-        <div
-          style={{
-            height: 50,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        <div className='selector'>
+          <div className='hex-code'>
+            Hex:
+            <input value={hex} onChange={(e) => onHexChange(e)} />
+          </div>
           {hexIsValid ? (
-            <div
-              style={{
-                height: 50,
-                width: 50,
-                background: hex,
-                borderRadius: 50,
-              }}
-            ></div>
+            <div className='color-circle'></div>
           ) : (
             <div
               style={{
-                background: 'yellow',
                 paddingInline: 16,
                 paddingBlock: 2,
               }}
@@ -84,38 +73,24 @@ const ColorPicker = ({
               Hex not valid
             </div>
           )}
-
-          <h2>
-            Hex:{' '}
-            <input
-              style={{
-                border: 'none',
-                padding: 4,
-                fontSize: 20,
-                width: 100,
-                borderRadius: 2,
-              }}
-              value={hex}
-              onChange={(e) => onHexChange(e)}
-            />
-          </h2>
         </div>
-
-        <RgbSlider
-          colorName='red'
-          colorValue={color[0]}
-          colorChange={colorChange}
-        />
-        <RgbSlider
-          colorName='green'
-          colorValue={color[1]}
-          colorChange={colorChange}
-        />
-        <RgbSlider
-          colorName='blue'
-          colorValue={color[2]}
-          colorChange={colorChange}
-        />
+        <div className='input-holder'>
+          <RgbSlider
+            colorName='red'
+            colorValue={color[0]}
+            colorChange={colorChange}
+          />
+          <RgbSlider
+            colorName='green'
+            colorValue={color[1]}
+            colorChange={colorChange}
+          />
+          <RgbSlider
+            colorName='blue'
+            colorValue={color[2]}
+            colorChange={colorChange}
+          />
+        </div>
       </div>
     </div>
   )
