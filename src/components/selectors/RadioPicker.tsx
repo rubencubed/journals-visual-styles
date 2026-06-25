@@ -13,8 +13,8 @@ const RadioPicker = ({
   setSelectedOption: (selectedOption: string) => void
 }) => {
   return (
-    <div className='radio-picker'>
-      <h2>{name}</h2>
+    <details className='radio-picker' open={true}>
+      <summary>{name}</summary>
       <div className='radio-buttons'>
         {options.map((option, index) => (
           <div key={name + index.toString()}>
@@ -29,7 +29,7 @@ const RadioPicker = ({
           </div>
         ))}
       </div>
-    </div>
+    </details>
   )
 }
 

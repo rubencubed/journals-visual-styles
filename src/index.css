@@ -3,14 +3,21 @@
   background-color: #eee;
 
   --main-color: #002D72;
+  --secondary-color: #68ACE5;
+  --tertiary-color: #F1C400;
+
   --text-color: #000000;
   --background-color: #ffffff;
-  --padding: auto;
-  --border-radius: auto;
+
   --transition-timing: 750ms;
 
-  --container-padding: calc(var(--padding) * 0.8);
-  --container-border-radius: var(--border-radius);
+  --padding: auto;
+  --container-padding: auto;
+  /* Set using "Chunkiness" */
+  --color-padding: auto;
+
+  --border-radius: auto;
+  --container-border-radius: auto;
 
   interpolate-size: allow-keywords;
 
@@ -37,7 +44,6 @@ body {
     flex: 1 1 25rem;
     max-width: 35rem;
     min-width: 25rem;
-    ;
   }
 
   #interface {
@@ -101,6 +107,34 @@ body {
     padding-block-end: .5rem;
     margin-block-end: .5rem;
   }
+
+  &[open] summary::after {
+    transform: rotate(180deg) translateY(50%);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    font-size: 1.5em;
+    font-weight: 700;
+    user-select: none;
+
+    &::after {
+      --size: 2rem;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      width: var(--size);
+      height: var(--size);
+      transform: translateY(-50%);
+      content: '▾';
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: var(--size);
+      text-align: center;
+    }
+  }
 }
 
 .color-picker {
@@ -123,16 +157,25 @@ body {
 
     input {
       border: none;
-      padding: 4;
+      padding: 2px;
       width: 100px;
       border-radius: 2px;
     }
   }
 
-  .color-circle {
+  .color-swatch {
+    --swatch-color: var(--main-color);
     height: 1.25rem;
-    width: 100%;
-    background-color: var(--main-color);
+    width: min(300px, 100%);
+    background-color: var(--swatch-color);
+
+    &.secondary {
+      --swatch-color: var(--secondary-color);
+    }
+
+    &.tertiary {
+      --swatch-color: var(--tertiary-color);
+    }
   }
 }
 
@@ -158,8 +201,46 @@ body {
 
   p,
   ol,
-  ul {
+  ul,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--text-color);
+  }
+
+  a {
+    color: var(--main-color)
+  }
+
+  a.call-out {
+    --call-out-border-radius: var(--border-radius);
+
+    text-decoration: none;
+    font-size: 1.25rem;
+    margin-inline: auto;
+    display: block;
+    text-align: center;
+
+    background-color: var(--call-out-background-color);
+    color: contrast-color(var(--call-out-background-color));
+    border-radius: var(--call-out-border-radius);
+
+    padding: var(--padding);
+
+    &.primary {
+      --call-out-background-color: var(--main-color);
+    }
+
+    &.secondary {
+      --call-out-background-color: var(--secondary-color);
+    }
+
+    &.small {
+      max-width: max-content;
+    }
   }
 
   .accordion {
@@ -238,6 +319,48 @@ body {
 
     summary::-webkit-details-marker {
       display: none;
+    }
+  }
+
+  .people-card-holder {
+    container-type: inline-size;
+  }
+
+  .people-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.5rem;
+
+    padding: var(--container-padding);
+    border-radius: var(--container-border-radius);
+
+    border: 1px solid gray;
+    margin-block: 0.5rem;
+
+    @container (max-width: 500px) {
+      grid-template-columns: 1fr;
+
+      img {
+        margin-inline: auto;
+      }
+
+      h3 {
+        text-align: center;
+      }
+    }
+
+    img {
+      max-width: 150px;
+      height: auto;
+      align-self: center;
+    }
+
+    .copy>* {
+      margin-block-start: 0.125rem;
+    }
+
+    .copy>:last-child {
+      margin-block-end: 0.125rem;
     }
   }
 
@@ -616,31 +739,6 @@ input:where([type="checkbox"][role="switch"]) {
 a:hover,
 a:active {
   text-decoration: none;
-}
-
-a.call-out {
-  --call-out-border-radius: var(--border-radius);
-
-  text-decoration: none;
-  font-size: 1.25rem;
-  margin-inline: auto;
-  display: block;
-  text-align: center;
-
-  background-color: var(--call-out-background-color);
-  color: var(--background-color);
-  border-radius: var(--call-out-border-radius);
-
-  padding-inline: calc((var(--padding) * 1.5) + 0.25rem);
-  padding-block: calc((var(--padding) * 1) + 0.25rem);
-
-  &.primary {
-    --call-out-background-color: var(--main-color);
-  }
-
-  &.small {
-    max-width: max-content;
-  }
 }
 
 /* Styles that can optionally be included */

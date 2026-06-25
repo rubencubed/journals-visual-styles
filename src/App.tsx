@@ -8,6 +8,7 @@ import Menu from './components/visuals/Menu'
 import Link from './components/visuals/Link'
 import Paragraph from './components/visuals/Paragraph'
 import Accordion from './components/visuals/Accordion'
+import PeopleCard from './components/visuals/PeopleCard'
 
 import calculateContrast from './utils/contrast'
 import { convertHexColorToDecimalTuple, decimalToHex } from './utils/conversion'
@@ -20,9 +21,10 @@ const borderRadiusOptions = [
 ]
 
 const paddingOptions = [
-  { value: '0rem', label: 'Trimmed' },
-  { value: '.25rem', label: 'Default' },
-  { value: '.75rem', label: 'More' },
+  { value: 'auto', label: 'Default' },
+  { value: '0.25', label: 'A little' },
+  { value: '0.75', label: 'More' },
+  { value: '1', label: 'A lot' },
 ]
 
 const transitionTimingOptions = [
@@ -42,17 +44,59 @@ function App() {
   const [mainColor, setMainColor] = useState<[number, number, number]>([
     0, 45, 114,
   ])
+  const [secondaryColor, setSecondaryColor] = useState<
+    [number, number, number]
+  >([104, 172, 229])
+  const [tertiaryColor, setTertiaryColor] = useState<[number, number, number]>([
+    241, 196, 0,
+  ])
   const [borderRadius, setBorderRadius] = useState('auto')
   const [padding, setPadding] = useState('auto')
   const [transitionTiming, setTransitionTiming] = useState('0')
   const [menu, setMenu] = useState('Slim')
+
+  const mainHex = useMemo(() => decimalToHex(mainColor), [mainColor])
+  const secondaryHex = useMemo(
+    () => decimalToHex(secondaryColor),
+    [secondaryColor],
+  )
+  const tertiaryHex = useMemo(
+    () => decimalToHex(tertiaryColor),
+    [tertiaryColor],
+  )
+
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty('--main-color', mainHex)
+  }, [mainHex])
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty(
+      '--secondary-color',
+      secondaryHex,
+    )
+  }, [secondaryHex])
+  useLayoutEffect(() => {
+    document.documentElement.style.setProperty('--tertiary-color', tertiaryHex)
+  }, [tertiaryHex])
 
   useLayoutEffect(() => {
     document.documentElement.style.setProperty('--border-radius', borderRadius)
   }, [borderRadius])
 
   useLayoutEffect(() => {
-    document.documentElement.style.setProperty('--padding', padding)
+    document.documentElement.style.setProperty(
+      '--padding',
+      padding.toString() + 'rem',
+    )
+  }, [padding])
+  useLayoutEffect(() => {
+    let containerPadding = 'auto'
+    if (padding !== 'auto') {
+      containerPadding = (parseFloat(padding) * 1.5).toString() + 'rem'
+    }
+    document.documentElement.style.setProperty(
+      '--container-padding',
+      containerPadding,
+    )
   }, [padding])
 
   useLayoutEffect(() => {
@@ -61,11 +105,6 @@ function App() {
       transitionTiming,
     )
   }, [transitionTiming])
-
-  const mainHex = useMemo(() => decimalToHex(mainColor), [mainColor])
-  useLayoutEffect(() => {
-    document.documentElement.style.setProperty('--main-color', mainHex)
-  }, [mainHex])
 
   const backgroundColor = useMemo(() => {
     const decimalTuple = convertHexColorToDecimalTuple(mainHex)
@@ -89,6 +128,16 @@ function App() {
     <>
       <div id='control-panel'>
         <ColorPicker name='Main' color={mainColor} setColor={setMainColor} />
+        <ColorPicker
+          name='Secondary'
+          color={secondaryColor}
+          setColor={setSecondaryColor}
+        />
+        <ColorPicker
+          name='Tertiary'
+          color={tertiaryColor}
+          setColor={setTertiaryColor}
+        />
 
         <RadioPicker
           name='Corner Rounding'
@@ -97,7 +146,7 @@ function App() {
         />
 
         <RadioPicker
-          name='Padding'
+          name='Internal Spaci-ness'
           options={paddingOptions}
           setSelectedOption={setPadding}
         />
@@ -125,7 +174,7 @@ function App() {
       <div id='interface'>
         <Menu menuFormat={menu} useDarkTheme={backgroundColor === '#000000'} />
         <main>
-          <h1 style={{ color: mainHex }}>This is a Heading 1</h1>
+          <h1>This is a Heading 1</h1>
           <Paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu
             porttitor erat, sed sollicitudin tellus.{' '}
@@ -140,6 +189,12 @@ function App() {
           <a href='#' className='call-out primary full'>
             Join Now
           </a>
+          <a href='#' className='call-out secondary small'>
+            Join Now
+          </a>
+          <a href='#' className='call-out secondary full'>
+            Join Now
+          </a>
 
           <Paragraph>
             Fusce id dapibus lorem. Sed ut sapien lectus. Sed vel sollicitudin
@@ -147,16 +202,18 @@ function App() {
             Aenean nec diam rhoncus, lacinia mi a, bibendum turpis.
           </Paragraph>
 
-          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+          <h2>This is a Heading 2</h2>
 
           <Paragraph>
             Vivamus vel iaculis nisl. <Link>Fusce tempor neque augue</Link>, a
             convallis nulla faucibus sit amet. Maecenas porttitor elementum ex
             vitae dapibus.
           </Paragraph>
+
           <Accordion name='faqs' />
-          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
-          <h3 style={{ color: textColor }}>This is a Heading 3</h3>
+
+          <h2>This is a Heading 2</h2>
+          <h3>This is a Heading 3</h3>
 
           <Paragraph>
             <Link>
@@ -166,12 +223,68 @@ function App() {
             aliquam mi.
           </Paragraph>
 
+          <div className='people-card-holder'>
+            <PeopleCard src='man1'>
+              <h3>David Chen</h3>
+              <p>
+                David Chen brings extensive experience in applied research,
+                program evaluation, and strategic planning. As an active
+                contributor to the association's educational initiatives, he
+                works to promote evidence-based practices and support the
+                professional growth of members at every career stage.
+              </p>
+              <p>
+                His commitment to interdisciplinary collaboration has helped
+                build partnerships between academic institutions, industry
+                leaders, and public-sector organizations, creating opportunities
+                for innovation and impact.
+              </p>
+            </PeopleCard>
+            <PeopleCard src='woman1'>
+              <h3>Sarah Mitchell</h3>
+              <p>
+                Sarah Mitchell serves as a leading voice within the
+                association's research and policy initiatives, contributing
+                expertise in organizational development, governance, and
+                professional standards. Her work helps strengthen the connection
+                between academic scholarship and practical application across
+                the field.
+              </p>
+            </PeopleCard>
+            <PeopleCard src='man2'>
+              <h3>James Walker</h3>
+              <p>
+                James Walker is a respected advocate for professional
+                development and lifelong learning. His contributions to the
+                association include leadership in curriculum advancement,
+                workforce development initiatives, and efforts to strengthen
+                connections across the academic community.
+              </p>
+            </PeopleCard>
+            <PeopleCard src='woman2'>
+              <h3>Maria Gonzalez</h3>
+              <p>
+                Maria Gonzalez focuses on advancing scholarly communication and
+                member outreach. Her expertise in public engagement and
+                knowledge dissemination supports the association's mission to
+                make research more accessible, relevant, and impactful for both
+                professional and public audiences.
+              </p>
+              <p>
+                Maria regularly contributes to conference planning, publication
+                development, and mentorship programs designed to cultivate the
+                next generation of leaders within the discipline. Her program
+                "Lead Next" was award the Gold Award from NISO.
+              </p>
+            </PeopleCard>
+          </div>
+
           <Paragraph>
             Vivamus auctor eu neque quis fringilla. Curabitur molestie orci
             nulla. In sed cursus nibh. Nulla sit amet ipsum condimentum, gravida
             neque vel, commodo mi.
           </Paragraph>
-          <h3 style={{ color: textColor }}>
+          <h3>
             <Link>This is a Heading 3 and a Link</Link>
           </h3>
 
@@ -186,7 +299,7 @@ function App() {
             scelerisque ipsum.
           </Paragraph>
 
-          <h4 style={{ color: textColor }}>This is a Heading 4</h4>
+          <h4>This is a Heading 4</h4>
 
           <Paragraph>
             Proin tristique elit eu tortor tristique, quis consequat nibh
@@ -197,7 +310,7 @@ function App() {
             .
           </Paragraph>
 
-          <h2 style={{ color: textColor }}>This is a Heading 2</h2>
+          <h2>This is a Heading 2</h2>
 
           <Paragraph>
             Pellentesque eleifend pulvinar tempus. Class aptent taciti sociosqu

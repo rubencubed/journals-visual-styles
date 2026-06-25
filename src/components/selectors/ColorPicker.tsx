@@ -15,7 +15,7 @@ const ColorPicker = ({
   setColor: (rgb: [number, number, number]) => void
   name: ColorInputName
 }) => {
-  const [hex, setHex] = useState('#002D72')
+  const [hex, setHex] = useState(decimalToHex(color))
   const [hexIsValid, setHexIsValid] = useState(true)
 
   const onHexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +53,8 @@ const ColorPicker = ({
   }
 
   return (
-    <div className='color-picker'>
-      <h2>{name} Color</h2>
+    <details className='color-picker' open={true}>
+      <summary>{name} Color</summary>
       <div className='color-input'>
         <div className='selector'>
           <div className='hex-code'>
@@ -62,7 +62,7 @@ const ColorPicker = ({
             <input value={hex} onChange={(e) => onHexChange(e)} />
           </div>
           {hexIsValid ? (
-            <div className='color-circle'></div>
+            <div className={`color-swatch ${name.toLowerCase()}`}></div>
           ) : (
             <div
               style={{
@@ -92,7 +92,7 @@ const ColorPicker = ({
           />
         </div>
       </div>
-    </div>
+    </details>
   )
 }
 
